@@ -8,7 +8,7 @@ namespace UtilizarTarea
          Review, 
          Done
     }
-    class Tarea
+    public class Tarea
     {
         private int? id;
         private int IdUsuarioPropietario;

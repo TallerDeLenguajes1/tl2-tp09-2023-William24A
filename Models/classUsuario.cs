@@ -1,6 +1,6 @@
 namespace UtilizarUsuario
 {
-    public class UtilizarUsuario
+    public class Usuario
     {
         private int? id;
         private string? nombreUsuario;
