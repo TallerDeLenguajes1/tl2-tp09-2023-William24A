@@ -4,7 +4,7 @@ namespace RepoTareaU
 {
     public interface IDTareaRepositorio
     {
-        public Tarea CreaTarea(int idTablero);
+        public Tarea CreaTarea(int idTablero, Tarea tarea); 
         public void Modificar(int id, Tarea tarea);
         public Tarea BuscarPorId(int id);
         public List<Tarea> BuscarTodasTarea(int idUsuario);

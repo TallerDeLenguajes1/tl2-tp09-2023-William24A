@@ -17,8 +17,7 @@ public class UsuarioController : ControllerBase
         repositorioUsuario = new RepoUsuarioC();
     }
 
-    [HttpGet]
-    [Route("Crear")]
+    [HttpPost("Crear")]
     public ActionResult<Usuario> CrearUsuario(Usuario usuario)
     {
         repositorioUsuario.Create(usuario);

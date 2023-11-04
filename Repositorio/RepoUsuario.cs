@@ -8,7 +8,7 @@ namespace RepoUsuarioU
         private string cadenaConexion = "Data Source=DB/kanban.db;Cache=Shared";
         public void Create(Usuario usuario)
         {
-            var query = $"INSERT INTO Usuario (nombre_de_usuario) VALUES (@name)";
+            var query = $"INSERT INTO Usuario (nombre_de_usuario) VALUES (@name);";
             using (SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
             {
 

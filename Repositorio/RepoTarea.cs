@@ -4,6 +4,7 @@ namespace RepoTareaU
 {
     public class RepoTareaC : IDTareaRepositorio
     {
+        private string cadenaConexion = "Data Soucer=DB/kanban.db;Cache=Shared";
         public void AsignarUsuTarea(int idUsuario, int idTarea)
         {
             throw new NotImplementedException();
@@ -24,9 +25,9 @@ namespace RepoTareaU
             throw new NotImplementedException();
         }
 
-        public Tarea CreaTarea(int idTablero)
+        public Tarea CreaTarea(int idTablero, Tarea tarea) //Consultar si es que esta modificacion esta bien
         {
-            throw new NotImplementedException();
+            var query = $"INSERT INTO Tarea(id_tablero,nombre, estado, descripcion,color) VALUES(@idTablero,@nombre_tarea, @estado );";
         }
 
         public void DeleteTarea(int idTarea)
