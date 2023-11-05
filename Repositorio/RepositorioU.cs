@@ -8,7 +8,7 @@ namespace RepoUsuarioU
         public Usuario GetById(int id);
         public void Create(Usuario usuario);
         public void Remove(int id);
-        public void Update(Usuario usuario);
+        public void Update(int idUsuario, Usuario usuario);
     }
 }
 

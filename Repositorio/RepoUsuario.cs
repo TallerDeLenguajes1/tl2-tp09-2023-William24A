@@ -25,7 +25,7 @@ namespace RepoUsuarioU
 
         public List<Usuario> GetAll()
         {
-            var queryString = @"SELECT * FROM Usuario;";
+            var queryString = $"SELECT * FROM Usuario;";
             List<Usuario> usuarios = new List<Usuario>();
             using (SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
             {
@@ -79,13 +79,13 @@ namespace RepoUsuarioU
             connection.Close();
         }
 
-        public void Update(Usuario usuario)
+        public void Update(int idUsuario, Usuario usuario)
         {
             SQLiteConnection connection = new SQLiteConnection(cadenaConexion);
             SQLiteCommand command = connection.CreateCommand();
-            command.CommandText = $"UPDATE Usuario SET name = @nombre_de_usuario WHERE id = @idUsuario;";
-            command.Parameters.Add(new SQLiteParameter("@idUsuario", usuario.Id));
-            command.Parameters.Add(new SQLiteParameter("@nombre_de_usuario",usuario.NombreUsuario));
+            command.CommandText = $"UPDATE Usuario SET nombre_de_usuario = @nombre WHERE id = @idUsuario;";
+            command.Parameters.Add(new SQLiteParameter("@idUsuario", idUsuario));
+            command.Parameters.Add(new SQLiteParameter("@nombre",usuario.NombreUsuario));
             connection.Open();
             command.ExecuteNonQuery();
             connection.Close();

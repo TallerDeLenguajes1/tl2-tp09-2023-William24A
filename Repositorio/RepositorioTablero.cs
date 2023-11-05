@@ -4,7 +4,7 @@ namespace RepoTableroU
 {
     public interface IDtableroRepositorio
     {
-        public Tablero CrearTablero();
+        public Tablero CrearTablero(Tablero tablero);
         public void ModificarTablero(int id, Tablero tablero);
         public Tablero ObtenerTableroID(int id);
         public List<Tablero> ListarTableros();

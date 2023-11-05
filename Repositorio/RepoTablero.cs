@@ -1,12 +1,25 @@
+using System.Data.SQLite;
 using UtilizarTablero;
 
 namespace RepoTableroU
 {
     public class RepoTableroC : IDtableroRepositorio
     {
-        public Tablero CrearTablero()
+        private string cadenaConexion ="Data Source=DB/kanban.db;Cache=Shared";
+        public Tablero CrearTablero(Tablero tablero) //modificacion preguntar
         {
-            throw new NotImplementedException();
+            string query = $"INSERT INTO Tablero(id_usuario_propietario,nombre,descripcion) VALUES(@id_usuario, @nombre,@descripcion);";
+            using (SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
+            {
+                connection.Open();
+                var command = new SQLiteCommand(query, connection);
+                command.Parameters.Add(new SQLiteParameter("id_usuario", tablero.Id_usuario_propietario));
+                command.Parameters.Add(new SQLiteParameter("@nombre", tablero.Nombre));
+                command.Parameters.Add(new SQLiteParameter("@descripcion", tablero.Descripcion));
+                command.ExecuteNonQuery();
+                connection.Close();
+            }
+            return tablero;
         }
 
         public void DeleteTablero(int idTablero)

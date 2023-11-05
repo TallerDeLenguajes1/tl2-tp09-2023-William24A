@@ -17,13 +17,52 @@ public class UsuarioController : ControllerBase
         repositorioUsuario = new RepoUsuarioC();
     }
 
+    [HttpGet]
+    [Route("Todos los Usuarios")]
+    public ActionResult<List<Usuario>> TodosLosUsuarios()
+    {
+        var usuarios = repositorioUsuario.GetAll();
+        if(usuarios != null)
+        {
+            return Ok(usuarios);
+        }
+        return NotFound("Recurso no encontrado");
+    }
+
     [HttpPost("Crear")]
     public ActionResult<Usuario> CrearUsuario(Usuario usuario)
     {
         repositorioUsuario.Create(usuario);
         return Ok(usuario);
     }
-    
+
+    [HttpGet]
+    [Route("Buscar usuario por ID")]
+    public ActionResult<Usuario> DetallesUsuPorId(int idUsuario)
+    {
+        var usuario = repositorioUsuario.GetById(idUsuario);
+        if(usuario.Id != null)
+        {
+            return Ok(usuario);
+        }
+        return NotFound("Recursos no encontrado");
+    }
+
+    [HttpDelete("Eliminar usuario")]
+    public ActionResult<string> EliminarUsuario(int id)
+    {
+        repositorioUsuario.Remove(id);
+        return Ok("Se elimino");
+    }
+
+    [HttpPut("Modificar Usuario")]
+    public ActionResult<Usuario> ModificarUsuario(int idUsuario, Usuario usuario)
+    {
+        repositorioUsuario.Update(idUsuario, usuario);
+        return Ok(usuario);
+    }
+
+
     
 
 }
