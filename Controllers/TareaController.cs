@@ -24,7 +24,27 @@ public class TareaController : ControllerBase
         var tareas = repositorioTarea.BuscarTodasTarea(idUsuario);
         return Ok(tareas);
     }
-    [HttpPost("Crear")]
+    [HttpGet]
+    [Route("Obtener tareas por ID tablero")]
+    public ActionResult<List<Tarea>> ObtenerTareasIDTablero(int idTablero)
+    {
+        var tareas = repositorioTarea.BuscarTareasTablero(idTablero);
+        return Ok(tareas);
+    }
+
+    [HttpGet]
+    [Route("Buscar Tarea por ID")]
+    public ActionResult<Tarea> BuscarTareaID(int Id)
+    {
+        var tarea = repositorioTarea.BuscarPorId(Id);
+        if(tarea.Id != null)
+        {
+            return Ok(tarea);
+        }
+        return NotFound("Recurso no encontrado");
+    }
+
+    [HttpPost("Crear Tarea")]
     public ActionResult<Tarea> CrearTarea(Tarea tarea)
     {
         var tareaN = repositorioTarea.CreaTarea(tarea);
@@ -35,6 +55,22 @@ public class TareaController : ControllerBase
         return BadRequest("No se creo la tarea");
     }
     
-    
+    [HttpPut("Asignar Usuario a Tarea")]
+    public void AsignarUsuTarea(int idUsuario, int idTarea)
+    {
+        repositorioTarea.AsignarUsuTarea(idUsuario, idTarea);
+    }
+
+    [HttpPut("Modificar tarea")]
+    public void ModificarTarea(int idtarea, Tarea tarea)
+    {
+        repositorioTarea.Modificar(idtarea, tarea);
+    }
+
+    [HttpDelete("Eliminar tarea")]
+    public void Eliminartarea(int idTarea)
+    {
+        repositorioTarea.DeleteTarea(idTarea);
+    }
 
 }

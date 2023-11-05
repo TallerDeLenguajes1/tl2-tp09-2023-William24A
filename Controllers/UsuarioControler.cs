@@ -29,13 +29,6 @@ public class UsuarioController : ControllerBase
         return NotFound("Recurso no encontrado");
     }
 
-    [HttpPost("Crear")]
-    public ActionResult<Usuario> CrearUsuario(Usuario usuario)
-    {
-        repositorioUsuario.Create(usuario);
-        return Ok(usuario);
-    }
-
     [HttpGet]
     [Route("Buscar usuario por ID")]
     public ActionResult<Usuario> DetallesUsuPorId(int idUsuario)
@@ -48,11 +41,11 @@ public class UsuarioController : ControllerBase
         return NotFound("Recursos no encontrado");
     }
 
-    [HttpDelete("Eliminar usuario")]
-    public ActionResult<string> EliminarUsuario(int id)
+    [HttpPost("Crear")]
+    public ActionResult<Usuario> CrearUsuario(Usuario usuario)
     {
-        repositorioUsuario.Remove(id);
-        return Ok("Se elimino");
+        repositorioUsuario.Create(usuario);
+        return Ok(usuario);
     }
 
     [HttpPut("Modificar Usuario")]
@@ -63,6 +56,12 @@ public class UsuarioController : ControllerBase
     }
 
 
+    [HttpDelete("Eliminar usuario")]
+    public ActionResult<string> EliminarUsuario(int id)
+    {
+        repositorioUsuario.Remove(id);
+        return Ok("Se elimino");
+    }
     
 
 }

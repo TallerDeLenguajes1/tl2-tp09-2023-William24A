@@ -35,23 +35,23 @@ namespace RepoTareaU
                     tarea.IdTablero = Convert.ToInt32(reader["id_tablero"]);
                     tarea.Nombre = reader["nombre"].ToString();
                     switch ((Convert.ToInt32(reader["estado"])))
-                    {
-                        case 1 :
-                        tarea.Estado = EstadoTarea.Doing;
-                        break;
-                        case 2 :
-                        tarea.Estado = EstadoTarea.Done;
-                        break;
-                        case 3 :
-                        tarea.Estado = EstadoTarea.Ideas;
-                        break;
-                        case 4:
-                        tarea.Estado = EstadoTarea.Review;
-                        break;
-                        case 5:
-                        tarea.Estado = EstadoTarea.ToDo;
-                        break;
-                    };
+                            {
+                                case 1 :
+                                tarea.Estado = EstadoTarea.Ideas;
+                                break;
+                                case 2 :
+                                tarea.Estado = EstadoTarea.ToDo;
+                                break;
+                                case 3 :
+                                tarea.Estado = EstadoTarea.Doing;
+                                break;
+                                case 4:
+                                tarea.Estado = EstadoTarea.Review;
+                                break;
+                                case 5:
+                                tarea.Estado = EstadoTarea.Done;
+                                break;
+                            };
                     tarea.Descripcion = reader["descripcion"].ToString();
                     tarea.Color = reader["color"].ToString();
                     tarea.IdUsuarioAsignado1 = Convert.ToInt32(reader["id_usuario_asignado"]);
@@ -69,7 +69,7 @@ namespace RepoTareaU
             using (SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
             {
                 SQLiteCommand command = new SQLiteCommand(queryString, connection);
-                command.Parameters.Add(new SQLiteParameter("@idUsuario", idTablero));
+                command.Parameters.Add(new SQLiteParameter("@idTablero", idTablero));
                 connection.Open();
             
                 using(SQLiteDataReader reader = command.ExecuteReader())
@@ -83,19 +83,19 @@ namespace RepoTareaU
                             switch ((Convert.ToInt32(reader["estado"])))
                             {
                                 case 1 :
-                                tarea.Estado = EstadoTarea.Doing;
+                                tarea.Estado = EstadoTarea.Ideas;
                                 break;
                                 case 2 :
-                                tarea.Estado = EstadoTarea.Done;
+                                tarea.Estado = EstadoTarea.ToDo;
                                 break;
                                 case 3 :
-                                tarea.Estado = EstadoTarea.Ideas;
+                                tarea.Estado = EstadoTarea.Doing;
                                 break;
                                 case 4:
                                 tarea.Estado = EstadoTarea.Review;
                                 break;
                                 case 5:
-                                tarea.Estado = EstadoTarea.ToDo;
+                                tarea.Estado = EstadoTarea.Done;
                                 break;
                             };
                             tarea.Descripcion = reader["descripcion"].ToString();
@@ -130,19 +130,19 @@ namespace RepoTareaU
                             switch ((Convert.ToInt32(reader["estado"])))
                             {
                                 case 1 :
-                                tarea.Estado = EstadoTarea.Doing;
+                                tarea.Estado = EstadoTarea.Ideas;
                                 break;
                                 case 2 :
-                                tarea.Estado = EstadoTarea.Done;
+                                tarea.Estado = EstadoTarea.ToDo;
                                 break;
                                 case 3 :
-                                tarea.Estado = EstadoTarea.Ideas;
+                                tarea.Estado = EstadoTarea.Doing;
                                 break;
                                 case 4:
                                 tarea.Estado = EstadoTarea.Review;
                                 break;
                                 case 5:
-                                tarea.Estado = EstadoTarea.ToDo;
+                                tarea.Estado = EstadoTarea.Done;
                                 break;
                             };
                             tarea.Descripcion = reader["descripcion"].ToString();
@@ -158,7 +158,7 @@ namespace RepoTareaU
 
         public Tarea CreaTarea(Tarea tarea) //Consultar si es que esta modificacion esta bien
         {
-            var query = $"INSERT INTO Tarea(id_tablero,nombre, estado, descripcion,color) VALUES(@idTablero, @nombre_tarea, @estado, @descripcion, @color );";
+            var query = $"INSERT INTO Tarea(id_tablero,nombre, estado, descripcion,color, id_usuario_asignado) VALUES(@idTablero, @nombre_tarea, @estado, @descripcion, @color, @idusuario );";
             using (SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
             {
                 connection.Open();
@@ -168,6 +168,7 @@ namespace RepoTareaU
                 command.Parameters.Add(new SQLiteParameter("@estado", tarea.Estado));
                 command.Parameters.Add(new SQLiteParameter("@descripcion", tarea.Descripcion));
                 command.Parameters.Add(new SQLiteParameter("@color", tarea.Color));
+                command.Parameters.Add(new SQLiteParameter("@idusuario", tarea.IdUsuarioAsignado1));
                 command.ExecuteNonQuery();
                 connection.Close();
             }
@@ -178,8 +179,8 @@ namespace RepoTareaU
         {
             SQLiteConnection connection = new SQLiteConnection(cadenaConexion);
             SQLiteCommand command = connection.CreateCommand();
-            command.CommandText = $"DELETE FROM Usuario WHERE id = @idUsuario;";
-            command.Parameters.Add(new SQLiteParameter("@idUsuario", idTarea));
+            command.CommandText = $"DELETE FROM Tarea WHERE id = @idTarea;";
+            command.Parameters.Add(new SQLiteParameter("@idTarea", idTarea));
             connection.Open();
             command.ExecuteNonQuery();
             connection.Close();
@@ -189,13 +190,15 @@ namespace RepoTareaU
         {
             SQLiteConnection connection = new SQLiteConnection(cadenaConexion);
             SQLiteCommand command = connection.CreateCommand();
-            command.CommandText = $"UPDATE Tarea SET nombre = @nombre WHERE id = @id;";
+            command.CommandText = $"UPDATE Tarea SET nombre = @nombre, id_tablero = @idTablero, estado = @estado, descripcion = @descripcion, color = @color, id_usuario_asignado = @idusuario  WHERE id = @id;";
             command.Parameters.Add(new SQLiteParameter("@id", id));
             command.Parameters.Add(new SQLiteParameter("@nombre", tarea.Nombre));
             command.Parameters.Add(new SQLiteParameter("@idTablero", tarea.IdTablero));
-            command.Parameters.Add(new SQLiteParameter("@estado", tarea.Estado));
+            command.Parameters.Add(new SQLiteParameter("@estado", Convert.ToInt32(tarea.Estado)));
             command.Parameters.Add(new SQLiteParameter("@descripcion", tarea.Descripcion));
             command.Parameters.Add(new SQLiteParameter("@color", tarea.Color));
+            command.Parameters.Add(new SQLiteParameter("@idusuario", tarea.IdUsuarioAsignado1));
+
             connection.Open();
             command.ExecuteNonQuery();
             connection.Close();
