@@ -34,24 +34,7 @@ namespace RepoTareaU
                     tarea.Id = Convert.ToInt32(reader["id"]);
                     tarea.IdTablero = Convert.ToInt32(reader["id_tablero"]);
                     tarea.Nombre = reader["nombre"].ToString();
-                    switch ((Convert.ToInt32(reader["estado"])))
-                            {
-                                case 1 :
-                                tarea.Estado = EstadoTarea.Ideas;
-                                break;
-                                case 2 :
-                                tarea.Estado = EstadoTarea.ToDo;
-                                break;
-                                case 3 :
-                                tarea.Estado = EstadoTarea.Doing;
-                                break;
-                                case 4:
-                                tarea.Estado = EstadoTarea.Review;
-                                break;
-                                case 5:
-                                tarea.Estado = EstadoTarea.Done;
-                                break;
-                            };
+                    tarea.Estado = (EstadoTarea)Convert.ToInt32(reader["estado"]); 
                     tarea.Descripcion = reader["descripcion"].ToString();
                     tarea.Color = reader["color"].ToString();
                     tarea.IdUsuarioAsignado1 = Convert.ToInt32(reader["id_usuario_asignado"]);
@@ -80,24 +63,7 @@ namespace RepoTareaU
                             tarea.Id = Convert.ToInt32(reader["id"]);
                             tarea.IdTablero = Convert.ToInt32(reader["id_tablero"]);
                             tarea.Nombre = reader["nombre"].ToString();
-                            switch ((Convert.ToInt32(reader["estado"])))
-                            {
-                                case 1 :
-                                tarea.Estado = EstadoTarea.Ideas;
-                                break;
-                                case 2 :
-                                tarea.Estado = EstadoTarea.ToDo;
-                                break;
-                                case 3 :
-                                tarea.Estado = EstadoTarea.Doing;
-                                break;
-                                case 4:
-                                tarea.Estado = EstadoTarea.Review;
-                                break;
-                                case 5:
-                                tarea.Estado = EstadoTarea.Done;
-                                break;
-                            };
+                            tarea.Estado = (EstadoTarea)Convert.ToInt32(reader["estado"]); 
                             tarea.Descripcion = reader["descripcion"].ToString();
                             tarea.Color = reader["color"].ToString();
                             tarea.IdUsuarioAsignado1 = Convert.ToInt32(reader["id_usuario_asignado"]);
@@ -127,24 +93,7 @@ namespace RepoTareaU
                             tarea.Id = Convert.ToInt32(reader["id"]);
                             tarea.IdTablero = Convert.ToInt32(reader["id_tablero"]);
                             tarea.Nombre = reader["nombre"].ToString();
-                            switch ((Convert.ToInt32(reader["estado"])))
-                            {
-                                case 1 :
-                                tarea.Estado = EstadoTarea.Ideas;
-                                break;
-                                case 2 :
-                                tarea.Estado = EstadoTarea.ToDo;
-                                break;
-                                case 3 :
-                                tarea.Estado = EstadoTarea.Doing;
-                                break;
-                                case 4:
-                                tarea.Estado = EstadoTarea.Review;
-                                break;
-                                case 5:
-                                tarea.Estado = EstadoTarea.Done;
-                                break;
-                            };
+                            tarea.Estado = (EstadoTarea)Convert.ToInt32(reader["estado"]); 
                             tarea.Descripcion = reader["descripcion"].ToString();
                             tarea.Color = reader["color"].ToString();
                             tarea.IdUsuarioAsignado1 = Convert.ToInt32(reader["id_usuario_asignado"]);
